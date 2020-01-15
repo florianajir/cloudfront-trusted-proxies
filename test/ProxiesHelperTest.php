@@ -23,7 +23,7 @@ class ProxiesHelperTest extends TestCase
             ->willReturn($cacheItemMock);
         $proxiesHelper = new ProxiesHelper($cachePoolMock);
 
-        $this->assertEquals([
+        self::assertEquals([
             '127.0.0.1',
             '127.0.0.2',
         ], $proxiesHelper->list());
@@ -32,7 +32,21 @@ class ProxiesHelperTest extends TestCase
     public function testListWithoutCache(): void
     {
         $proxiesHelper = new ProxiesHelper();
+        $results = $proxiesHelper->list();
+        self::assertNotEmpty($results);
+        self::assertIsArray($results);
+    }
 
-        $this->assertNotEmpty($proxiesHelper->list());
+    public function testListEmptyCache(): void
+    {
+        $cacheItemMock = $this->createMock(CacheItemInterface::class);
+        $cacheItemMock->expects(self::once())->method('isHit')->willReturn(false);
+        $cacheItemMock->expects(self::once())->method('set');
+        $cachePoolMock = $this->createMock(CacheItemPoolInterface::class);
+        $cachePoolMock
+            ->method('getItem')
+            ->willReturn($cacheItemMock);
+        $proxiesHelper = new ProxiesHelper($cachePoolMock);
+        self::assertNotEmpty($proxiesHelper->list());
     }
 }
