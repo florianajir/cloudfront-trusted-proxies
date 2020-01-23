@@ -15,6 +15,8 @@ You also need to append the IP addresses or ranges of any additional proxy (in t
 
 #### Without caching
 
+:warning: Warning: if you use this library without injecting a cache adapter your app will trigger an http request to get [ip-ranges.json](https://ip-ranges.amazonaws.com/ip-ranges.json) file from aws on each kernel booting.
+
 ```php
 // public/index.php
 
@@ -25,12 +27,15 @@ Request::setTrustedProxies(
 );
 ```
 
-#### With Filesystem caching
+#### With cache adapter
+
+You can inject to ProxiesHelper any instance that implements the CacheInterface.
+In this example the FilesystemAdapter is used to store the cloudfront ips for one hour (3600 seconds)
 
 ```php
 // public/index.php
 
-$cache = new FilesystemAdapter('cloudfront_trusted_ips', 3600); 
+$cache = new FilesystemAdapter('cloudfront_trusted_ips', 3600);
 // You can inject to ProxiesHelper any CacheInterface instance
 $proxyHelper = new ProxiesHelper($cache);
 Request::setTrustedProxies(
