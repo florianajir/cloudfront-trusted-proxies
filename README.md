@@ -1,4 +1,10 @@
 # cloudfront-trusted-proxies
+[![Latest Stable Version](https://poser.pugx.org/fmaj/cloudfront-trusted-proxies/version)](https://packagist.org/packages/fmaj/cloudfront-trusted-proxies)
+[![Total Downloads](https://poser.pugx.org/fmaj/cloudfront-trusted-proxies/downloads)](https://packagist.org/packages/fmaj/cloudfront-trusted-proxies)
+[![Latest Unstable Version](https://poser.pugx.org/fmaj/cloudfront-trusted-proxies/v/unstable)](https://packagist.org/packages/fmaj/cloudfront-trusted-proxies)
+[![License](https://poser.pugx.org/fmaj/cloudfront-trusted-proxies/license)](https://packagist.org/packages/fmaj/cloudfront-trusted-proxies)
+[![Build](https://travis-ci.org/florianajir/cloudfront-trusted-proxies.svg?branch=master)](https://travis-ci.org/florianajir/cloudfront-trusted-proxies)
+
 Provides a way to retrieve cloudfront proxies ip ranges with caching mechanism
 
 ## Symfony context
