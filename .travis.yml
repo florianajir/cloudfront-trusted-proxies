@@ -21,6 +21,8 @@ matrix:
       env: COVERAGE=true RUN_PHPSTAN=true
     - php: nightly
       env: dependencies=unstable
+  allow_failures:
+    - php: nightly
 
 before_install:
   - if [ "$dependencies" == "unstable" ]; then composer config minimum-stability dev; fi
