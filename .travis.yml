@@ -9,7 +9,7 @@ cache:
 
 env:
   global:
-    - COMPOSER_FLAGS="--prefer-source --no-interaction --no-suggest"
+    - COMPOSER_FLAGS="--prefer-dist --no-progress --no-interaction --no-suggest"
     - PHPUNIT_FLAGS="-v"
 
 matrix:
