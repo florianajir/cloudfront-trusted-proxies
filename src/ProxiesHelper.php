@@ -43,13 +43,11 @@ class ProxiesHelper
         // fetch the file
         $data = json_decode(file_get_contents($this->source), true);
         // filter to keep only cloudfront addresses
-        $ips = array_values(
-            array_filter(
-                array_map(static function ($item) {
-                    return $item['service'] === 'CLOUDFRONT' ? $item['ip_prefix'] : null;
-                }, $data['prefixes'])
-            )
-        );
+        $ips = array_values(array_filter(
+            array_map(static function (array $item) {
+                return $item['service'] === 'CLOUDFRONT' ? $item['ip_prefix'] : null;
+            }, $data['prefixes'])
+        ));
         // update cache
         $cached->set($ips);
         $this->cachePool->save($cached);
