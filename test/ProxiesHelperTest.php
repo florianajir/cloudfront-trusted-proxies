@@ -3,6 +3,7 @@
 namespace Fmaj\CloudfrontTrustedProxies\Tests;
 
 use Fmaj\CloudfrontTrustedProxies\ProxiesHelper;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
@@ -42,10 +43,14 @@ class ProxiesHelperTest extends TestCase
         $cacheItemMock = $this->createMock(CacheItemInterface::class);
         $cacheItemMock->expects(self::once())->method('isHit')->willReturn(false);
         $cacheItemMock->expects(self::once())->method('set');
+        /** @var MockObject|CacheItemPoolInterface $cachePoolMock */
         $cachePoolMock = $this->createMock(CacheItemPoolInterface::class);
         $cachePoolMock
             ->method('getItem')
             ->willReturn($cacheItemMock);
+        $cachePoolMock
+            ->expects($this->once())
+            ->method('save');
         $proxiesHelper = new ProxiesHelper($cachePoolMock);
         self::assertNotEmpty($proxiesHelper->list());
     }

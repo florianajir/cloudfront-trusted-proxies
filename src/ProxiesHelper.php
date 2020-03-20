@@ -57,6 +57,7 @@ class ProxiesHelper
 
         if ($this->cachePool) {
             $cached->set($ips);
+            $this->cachePool->save($cached);
         }
 
         return $ips;
