@@ -11,12 +11,25 @@
     }
   ],
   "require": {
-    "php": "^7.1",
+    "php": ">=7.1",
     "ext-json": "*",
     "psr/cache": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7 || ^8"
+    "phpunit/phpunit": ">=7.0.0",
+    "phpstan/phpstan": "0.12.*"
+  },
+  "suggest": {
+    "symfony/cache": "Implementation of PSR-6 cache system",
+    "symfony/framework-bundle": "The Symfony framework"
+  },
+  "scripts": {
+    "phpstan": "phpstan analyse -l 6 -c phpstan.neon src",
+    "phpunit": "phpunit --coverage-text",
+    "test": [
+      "@phpstan",
+      "@phpunit"
+    ]
   },
   "autoload": {
     "psr-4": {
@@ -25,7 +38,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Fmaj\\CloudfrontTrustedProxies\\Tests\\": "test"
+      "Fmaj\\CloudfrontTrustedProxies\\Tests\\": "tests"
     }
   }
 }
