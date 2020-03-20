@@ -5,7 +5,7 @@
          bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="cloudfront-trusted-proxies test suite">
-            <directory>./test</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
@@ -14,8 +14,4 @@
             <directory>./src</directory>
         </whitelist>
     </filter>
-
-    <logging>
-        <log type="coverage-text" target="php://stdout"/>
-    </logging>
 </phpunit>

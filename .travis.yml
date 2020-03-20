@@ -1,12 +1,40 @@
 language: php
-php:
-  - '7.1'
-  - '7.2'
-  - '7.3'
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - ./vendor/bin/.phpunit
+
+env:
+  global:
+    - SYMFONY_DEPRECATIONS_HELPER=99999
+    - COMPOSER_FLAGS="--prefer-source --no-interaction --no-suggest"
+    - PHPUNIT_FLAGS="-v"
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.2
+    - php: 7.3
+    - php: 7.4
+      env: COVERAGE=true RUN_PHPSTAN=true
+    - php: nightly
+      env: dependencies=unstable
+
+before_install:
+  - if [ "$dependencies" == "unstable" ]; then composer config minimum-stability dev; fi
+
+install:
+  - composer install ${COMPOSER_FLAGS
 
 before_script:
-  - composer self-update
-  - composer install ${COMPOSER_FLAGS} --prefer-source --no-interaction --dev
+  - composer validate --strict --no-check-lock
 
 script:
   - vendor/bin/phpunit ${PHPUNIT_FLAGS}
+  - if [ "$RUN_PHPSTAN" == "true" ]; then composer phpstan; fi
+
+after_success:
+  - if [[ $COVERAGE = true ]]; then bash <(curl -s https://codecov.io/bash); fi
