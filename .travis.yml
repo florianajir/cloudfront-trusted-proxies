@@ -9,7 +9,6 @@ cache:
 
 env:
   global:
-    - SYMFONY_DEPRECATIONS_HELPER=99999
     - COMPOSER_FLAGS="--prefer-source --no-interaction --no-suggest"
     - PHPUNIT_FLAGS="-v"
 
@@ -27,7 +26,7 @@ before_install:
   - if [ "$dependencies" == "unstable" ]; then composer config minimum-stability dev; fi
 
 install:
-  - composer install ${COMPOSER_FLAGS
+  - composer install ${COMPOSER_FLAGS}
 
 before_script:
   - composer validate --strict --no-check-lock
